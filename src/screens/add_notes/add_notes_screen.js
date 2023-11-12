@@ -1,3 +1,4 @@
+import Ionicons from '@expo/vector-icons/Ionicons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
@@ -26,7 +27,7 @@ const AddNotesScreen = ({ route, navigation }) => {
   const [isFormValid, setIsFormValid] = useState(false)
 
   // category
-  const [category, setCategoryOpen] = useState(false)
+  const [categoryOpen, setCategoryOpen] = useState(false)
   const [categoryValue, setCategoryValue] = useState('')
   const [categoryItems, setCategoryItems] = useState([
     { label: 'Select a Category', value: '' },
@@ -78,6 +79,7 @@ const AddNotesScreen = ({ route, navigation }) => {
 
   // reading category data
   const readCategory = () => {
+    setCategoryItems([])
     // populating to an array
     var array = [...categoryItems]
 
@@ -92,6 +94,7 @@ const AddNotesScreen = ({ route, navigation }) => {
   }
   // reading category data
   const readClients = () => {
+    SetClientItems([])
     // populating to an array
     var array = [...clientItems]
 
@@ -146,8 +149,16 @@ const AddNotesScreen = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/* add notes text */}
-      <Text style={styles.addNotesText}>Add notes</Text>
+      <View style={styles.header}>
+        {/* add notes text and close button */}
+        <Text style={styles.addNotesText}>Add notes</Text>
+        <TouchableOpacity
+          style={styles.closeButton}
+          onPress={() => navigation.pop()}
+        >
+          <Ionicons name="close" size={28} color="black" />
+        </TouchableOpacity>
+      </View>
       {/* Notes */}
       <ScrollView>
         <View>
@@ -177,13 +188,17 @@ const AddNotesScreen = ({ route, navigation }) => {
         <View style={styles.pickerRow}>
           <DropDownPicker
             style={styles.picker}
-            open={category}
+            open={categoryOpen}
             value={categoryValue}
             items={categoryItems}
             setOpen={setCategoryOpen}
             setValue={setCategoryValue}
             setItems={setCategoryItems}
-          />
+            containerProps={{
+              height: categoryOpen === true ? 220 : null,
+              backgroundColor: '#fff',
+            }}
+          ></DropDownPicker>
           <DropDownPicker
             style={styles.picker}
             open={clientOpen}
@@ -192,28 +207,21 @@ const AddNotesScreen = ({ route, navigation }) => {
             setOpen={setClientOpen}
             setValue={SetClientValue}
             setItems={SetClientItems}
+            containerProps={{
+              height: clientOpen === true ? 220 : null,
+              backgroundColor: '#fff',
+            }}
           />
         </View>
-        {/* save and back button */}
-        <View style={styles.buttonRow}>
-          {/* save button */}
-          <TouchableOpacity
-            disabled={!isFormValid}
-            style={styles.buttonSave}
-            onPress={addNote}
-          >
-            <Text style={styles.buttonSave.text}>SAVE</Text>
-          </TouchableOpacity>
-          {/* cancel button*/}
-          <TouchableOpacity
-            style={styles.buttonCancel}
-            onPress={() => {
-              navigation.pop()
-            }}
-          >
-            <Text style={styles.buttonCancel.text}>CANCEL</Text>
-          </TouchableOpacity>
-        </View>
+        {/* save  */}
+
+        <TouchableOpacity
+          disabled={!isFormValid}
+          style={styles.buttonSave}
+          onPress={addNote}
+        >
+          <Text style={styles.buttonSave.text}>SAVE</Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   )

@@ -61,7 +61,7 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.welcomeText}>NOTE APP</Text>
         {/* notes component */}
         <ScrollView>
-          {noteList.length > 1 ? (
+          {noteList.length >= 1 ? (
             noteList.map((item, index) => {
               return (
                 <TouchableOpacity key={index} onPress={() => viewNote(index)}>
