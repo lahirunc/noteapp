@@ -76,25 +76,32 @@ const AddNotesScreen = ({ route, navigation }) => {
     setIsFormValid(Object.keys(errors).length === 0)
   }
 
+  // reading category data
   const readCategory = () => {
+    // populating to an array
     var array = [...categoryItems]
 
+    // adding data from the json to the array
     for (let i = 0; i < customData['category'].length; i++) {
       const element = customData['category'][i]
       array.push({ label: element['name'], value: element['name'] })
     }
 
+    // updating the categoryItems value
     setCategoryItems(array)
   }
-
+  // reading category data
   const readClients = () => {
+    // populating to an array
     var array = [...clientItems]
 
+    // adding data from the json to the array
     for (let i = 0; i < customData['client'].length; i++) {
       const element = customData['client'][i]
       array.push({ label: element['name'], value: element['name'] })
     }
 
+    // updating the clientItems value
     SetClientItems(array)
   }
 
