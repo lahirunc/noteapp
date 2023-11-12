@@ -16,6 +16,8 @@ const AddNotesScreen = ({ route, navigation }) => {
   // getting the parameters from parent
   const { noteList, index } = route.params
 
+  const customData = require('../../assets/custom_data.json')
+
   // text input
   const [notes, setNotes] = useState()
 
@@ -28,9 +30,6 @@ const AddNotesScreen = ({ route, navigation }) => {
   const [categoryValue, setCategoryValue] = useState('')
   const [categoryItems, setCategoryItems] = useState([
     { label: 'Select a Category', value: '' },
-    { label: 'Goal Evidence', value: 'Goal Evidence' },
-    { label: 'Support Coordination', value: 'Support Coordination' },
-    { label: 'Active Duty', value: 'Active Duty' },
   ])
 
   // client
@@ -38,9 +37,6 @@ const AddNotesScreen = ({ route, navigation }) => {
   const [clientValue, SetClientValue] = useState('')
   const [clientItems, SetClientItems] = useState([
     { label: 'Select a Client', value: '' },
-    { label: 'Client 1', value: 'Client 1' },
-    { label: 'Client 2', value: 'Client 2' },
-    { label: 'Client 3', value: 'Client 3' },
   ])
 
   useFocusEffect(
@@ -53,6 +49,10 @@ const AddNotesScreen = ({ route, navigation }) => {
         setCategoryValue(data['category'])
         SetClientValue(data['client'])
       }
+
+      // getting category and clients data
+      readCategory()
+      readClients()
     }, [])
   )
 
@@ -74,6 +74,28 @@ const AddNotesScreen = ({ route, navigation }) => {
     // Set the errors and update form validity
     setErrors(errors)
     setIsFormValid(Object.keys(errors).length === 0)
+  }
+
+  const readCategory = () => {
+    var array = [...categoryItems]
+
+    for (let i = 0; i < customData['category'].length; i++) {
+      const element = customData['category'][i]
+      array.push({ label: element['name'], value: element['name'] })
+    }
+
+    setCategoryItems(array)
+  }
+
+  const readClients = () => {
+    var array = [...clientItems]
+
+    for (let i = 0; i < customData['client'].length; i++) {
+      const element = customData['client'][i]
+      array.push({ label: element['name'], value: element['name'] })
+    }
+
+    SetClientItems(array)
   }
 
   // adding the note to storage

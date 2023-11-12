@@ -34,6 +34,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#800080',
     borderRadius: 100,
   },
+  noNotes: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+    text: {
+      fontSize: 16,
+    },
+  },
   notes: {
     backgroundColor: '#C589E8',
     padding: 15,

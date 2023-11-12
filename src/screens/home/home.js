@@ -61,25 +61,31 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.welcomeText}>NOTE APP</Text>
         {/* notes component */}
         <ScrollView>
-          {noteList.map((item, index) => {
-            return (
-              <TouchableOpacity key={index} onPress={() => viewNote(index)}>
-                {/* note data */}
-                <View keys={index} style={styles.notes}>
-                  <Text styles={styles.noteText}>{item['notes']}</Text>
-                  <Text styles={styles.noteText}>{item['client']}</Text>
-                  <Text styles={styles.noteText}>{item['category']}</Text>
-                </View>
-                {/* delete icon button */}
-                <TouchableOpacity
-                  style={styles.deleteNote}
-                  onPress={() => deleteNote(index)}
-                >
-                  <Ionicons name="trash" size={18} color="#D84727" />
+          {noteList.length > 1 ? (
+            noteList.map((item, index) => {
+              return (
+                <TouchableOpacity key={index} onPress={() => viewNote(index)}>
+                  {/* note data */}
+                  <View keys={index} style={styles.notes}>
+                    <Text styles={styles.noteText}>{item['notes']}</Text>
+                    <Text styles={styles.noteText}>{item['client']}</Text>
+                    <Text styles={styles.noteText}>{item['category']}</Text>
+                  </View>
+                  {/* delete icon button */}
+                  <TouchableOpacity
+                    style={styles.deleteNote}
+                    onPress={() => deleteNote(index)}
+                  >
+                    <Ionicons name="trash" size={18} color="#D84727" />
+                  </TouchableOpacity>
                 </TouchableOpacity>
-              </TouchableOpacity>
-            )
-          })}
+              )
+            })
+          ) : (
+            <View style={styles.noNotes}>
+              <Text style={styles.noNotes.text}>No Notes to be shown.</Text>
+            </View>
+          )}
         </ScrollView>
       </View>
       {/* floating button */}
